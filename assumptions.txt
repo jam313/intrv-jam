@@ -1,0 +1,5 @@
+using Windows 10
+using python 3.6.4
+skipping bad lines in test files
+assuming this will only needs to be run with the two files give, not any .txt files
+assuming tables should be replaced if they exist
