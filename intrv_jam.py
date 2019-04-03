@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 from os.path import splitext
 import sys
@@ -9,6 +9,7 @@ import pandas as pd
 def main(argv):
     try:
         file_name = argv[0]
+
         if file_name == 'test1.txt':
             delim = ','
             header = 'infer'
@@ -27,10 +28,17 @@ def main(argv):
         data_frame = pd.read_csv(file_name, sep=delim, header=header, names=names, skipinitialspace=True,
                                  engine='python', error_bad_lines=False)
         data_frame.to_sql(splitext(file_name)[0], con=engine, if_exists='replace')
+
+        print('Database create/updated with table {}'.format(splitext(file_name)[0]))
+        sys.exit(0)
+    except IndexError:
+        print('Please provide an input file')
+        print('Usage: intrv_jam.py [test1.txt|test2.txt]')
+        sys.exit(1)
     except Exception as e:
         print(e)
         print('Usage: intrv_jam.py [test1.txt|test2.txt]')
-        sys.exit(2)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
